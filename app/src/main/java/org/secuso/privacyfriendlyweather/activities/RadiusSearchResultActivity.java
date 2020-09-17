@@ -25,6 +25,7 @@ public class RadiusSearchResultActivity extends AppCompatActivity {
     private ListView listViewResult;
     private WebView webView;
     private static String API_KEY;
+    private static  String tempunit;
     /**
      * Member variables
      */
@@ -54,10 +55,11 @@ public class RadiusSearchResultActivity extends AppCompatActivity {
 //        listViewResult.setAdapter(itemsAdapter);
         AppPreferencesManager prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         API_KEY = prefManager.getOWMApiKey(getApplicationContext());
+        tempunit = prefManager.getWeatherUnit();
         webView = findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
         int cityId = getIntent().getIntExtra("cityId", -1);
-        webView.loadUrl("file:///android_asset/radiussearch.html?appid=" + API_KEY + "&cityid=" + cityId);
+        webView.loadUrl("file:///android_asset/radiussearch.html?appid=" + API_KEY + "&cityid=" + cityId + "&tempunit=" + tempunit.substring(1));
     }
 
  /*   private List<String> getItemsToDisplay(List<RadiusSearchItem> resultList) {

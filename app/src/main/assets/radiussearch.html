@@ -58,13 +58,14 @@ var map;
 
 function initMap() {
 var OWM_API_KEY = getUrlParameter('appid');
+var tempunit = getUrlParameter('tempunit');
 
 	var standard = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		maxZoom: 19,
+		maxZoom: 11, minZoom: 8,
 		attribution: '<a href="https://leafletjs.com/" target="_blank">Leaflet</a> | &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors</a>'
 		});
 
-	var city = L.OWM.current({intervall: 15,  minZoom: 5,
+	var city = L.OWM.current({intervall: 15,  minZoom: 8, clusterSize: 100, imageWidth: 50, imageHeight:50, temperatureUnit: tempunit,
 			appId: OWM_API_KEY});
 
 	var zoom = 9;
