@@ -3,6 +3,7 @@ package org.secuso.privacyfriendlyweather.activities;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -22,7 +23,8 @@ public class RadiusSearchResultActivity extends AppCompatActivity {
      * Visual components
      */
     private ListView listViewResult;
-
+    private WebView webView;
+    private static String API_KEY;
     /**
      * Member variables
      */
@@ -37,8 +39,8 @@ public class RadiusSearchResultActivity extends AppCompatActivity {
 
         // Retrieve the data to display
         Bundle bundle = getIntent().getExtras();
-        ArrayList<RadiusSearchItem> resultList = bundle.getParcelableArrayList("resultList");
-        itemsToDisplay = getItemsToDisplay(resultList);
+//        ArrayList<RadiusSearchItem> resultList = bundle.getParcelableArrayList("resultList");
+//        itemsToDisplay = getItemsToDisplay(resultList);
 
         initialize();
     }
@@ -47,12 +49,18 @@ public class RadiusSearchResultActivity extends AppCompatActivity {
      * Initialized the components of this activity.
      */
     private void initialize() {
-        itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsToDisplay);
-        listViewResult = (ListView) findViewById(R.id.activity_radius_search_result_list_view);
-        listViewResult.setAdapter(itemsAdapter);
+//        itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsToDisplay);
+//        listViewResult = (ListView) findViewById(R.id.activity_radius_search_result_list_view);
+//        listViewResult.setAdapter(itemsAdapter);
+        AppPreferencesManager prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
+        API_KEY = prefManager.getOWMApiKey(getApplicationContext());
+        webView = findViewById(R.id.webView);
+        webView.getSettings().setJavaScriptEnabled(true);
+        int cityId = getIntent().getIntExtra("cityId", -1);
+        webView.loadUrl("file:///android_asset/radiussearch.html?appid=" + API_KEY + "&cityid=" + cityId);
     }
 
-    private List<String> getItemsToDisplay(List<RadiusSearchItem> resultList) {
+ /*   private List<String> getItemsToDisplay(List<RadiusSearchItem> resultList) {
         List<String> itemsToDisplay = new ArrayList<>();
         IApiToDatabaseConversion.WeatherCategories category;
         ValueDeriver deriver = new ValueDeriver(getApplicationContext());
@@ -74,5 +82,5 @@ public class RadiusSearchResultActivity extends AppCompatActivity {
         }
         return itemsToDisplay;
     }
-
+*/
 }

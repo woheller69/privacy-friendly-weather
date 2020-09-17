@@ -1,5 +1,6 @@
 package org.secuso.privacyfriendlyweather.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -197,8 +198,12 @@ public class RadiusSearchActivity extends BaseActivity {
             }
         }
 
-        IHttpRequestForRadiusSearch radiusSearchRequest = new OwmHttpRequestForRadiusSearch(getApplicationContext());
-        radiusSearchRequest.perform(dropdownSelectedCity.getCityId(), edgeLength, numberOfReturnCities);
+        //IHttpRequestForRadiusSearch radiusSearchRequest = new OwmHttpRequestForRadiusSearch(getApplicationContext());
+        //radiusSearchRequest.perform(dropdownSelectedCity.getCityId(), edgeLength, numberOfReturnCities);
+        int cityId = dropdownSelectedCity.getCityId();
+        Intent intent = new Intent(this, RadiusSearchResultActivity.class);
+        intent.putExtra("cityId", cityId);
+        startActivity(intent);
     }
 
     /**
