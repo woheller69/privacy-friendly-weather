@@ -65,7 +65,7 @@ var tempunit = getUrlParameter('tempunit');
 		attribution: '<a href="https://leafletjs.com/" target="_blank">Leaflet</a> | &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors</a>'
 		});
 
-	var city = L.OWM.current({intervall: 15,  minZoom: 8, clusterSize: 100, imageWidth: 50, imageHeight:50, temperatureUnit: tempunit,
+	var city = L.OWM.current({intervall: 15,  minZoom: 8, clusterSize: 100, imageWidth: 50, imageHeight:50, temperatureUnit: tempunit, popup: false,
 			appId: OWM_API_KEY});
 
 	var zoom = 9;
